@@ -23,8 +23,8 @@ export const theme = {
       error: "#D32F2F",
       text: "#FFFFFF",
       border: "#FFFFFF",
-      activeTab: "#4FC3F7",
-      inactiveTab: "#FFFFFF",
+      activeTab: "rgb(255,159,10)",
+      inactiveTab: "#898989",
     },
   },
 };

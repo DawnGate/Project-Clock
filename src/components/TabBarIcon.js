@@ -12,12 +12,13 @@ const tabIcon = {
   [NAVIGATION.timer]: timerIcon,
 };
 
-const TabBarIcon = ({ color, routeName }) => {
+const TabBarIcon = ({ color, routeName, focused }) => {
   return (
     <Image
       accessibilityIgnoresInvertColors
       source={tabIcon[routeName]}
       style={{ tintColor: color, width: 30, height: 30 }}
+      focused={focused}
     />
   );
 };
