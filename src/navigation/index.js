@@ -20,8 +20,10 @@ const TabNavigationRender = () => {
         tabBarActiveTintColor: colors.activeTab,
         tabBarInactiveTintColor: colors.inactiveTab,
         tabBarStyle: {
-          position: "absolute",
-          backgroundColor: "transparent",
+          // position: "absolute",
+          // backgroundColor: "transparent",
+          // border: "none",
+          borderTopWidth: 0,
         },
         tabBarIcon: ({ color, focused }) => {
           return (
@@ -44,7 +46,6 @@ const TabNavigationRender = () => {
 
 export function RootNavigator() {
   const scheme = useColorScheme();
-  console.log(scheme);
   return (
     <NavigationContainer theme={theme[scheme]}>
       <TabNavigationRender />

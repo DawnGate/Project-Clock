@@ -1,10 +1,22 @@
+import { Layout } from "@/components";
+import { useTheme } from "@react-navigation/native";
 import { Text, View } from "react-native";
 
 const Alarm = () => {
+  const { colors } = useTheme();
+
   return (
-    <View>
-      <Text>Alarm</Text>
-    </View>
+    <Layout>
+      <View>
+        <Text
+          style={{
+            color: colors.text,
+          }}
+        >
+          Alarm
+        </Text>
+      </View>
+    </Layout>
   );
 };
 
