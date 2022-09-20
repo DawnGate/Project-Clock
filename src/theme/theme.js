@@ -7,6 +7,7 @@ export const theme = {
       ...DefaultTheme.colors,
       primary: "#B0BEC5",
       secondary: "#29434E",
+      third: "#D8D8D8",
       error: "#D32F2F",
       text: "#212121",
       border: "#212121",
@@ -19,7 +20,8 @@ export const theme = {
     colors: {
       ...DarkTheme.colors,
       primary: "#212121",
-      secondary: "#29434E",
+      secondary: "#444444",
+      third: "#979797",
       error: "#D32F2F",
       text: "#FFFFFF",
       border: "#FFFFFF",
