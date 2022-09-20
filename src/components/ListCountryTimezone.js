@@ -1,6 +1,30 @@
-import { SectionList, View, Text } from "react-native";
+import { useTheme } from "@react-navigation/native";
+import { SectionList, View, Text, StyleSheet } from "react-native";
 import data from "../data";
+import { Divider } from "react-native-elements";
+
+const styles = StyleSheet.create({
+  container: {
+    marginLeft: 10,
+  },
+
+  subContainer: {
+    marginLeft: 5,
+  },
+
+  listHeader: {
+    paddingVertical: 10,
+    fontSize: 20,
+  },
+
+  itemText: {
+    fontSize: 20,
+    paddingVertical: 10,
+  },
+});
 const ListCountryTimeZone = () => {
+  const { colors } = useTheme();
+
   const alphabets = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
   const sections_data = alphabets.map((item) => ({
     title: item,
@@ -23,7 +47,6 @@ const ListCountryTimeZone = () => {
       const section_data_item = sections_data.find(
         (item) => item.title === alphabet_key
       );
-      console.log(alphabet_key);
       section_data_item.data = [
         ...section_data_item.data,
         {
@@ -34,8 +57,6 @@ const ListCountryTimeZone = () => {
       return key;
     });
 
-  console.log(sections_data);
-
   return (
     <View
       style={{
@@ -44,21 +65,42 @@ const ListCountryTimeZone = () => {
     >
       <SectionList
         sections={sections_data}
-        renderItem={({ item }) => {
+        style={styles.container}
+        renderItem={(data) => {
+          const item = data.item;
           return (
-            <Text
-              style={{
-                color: "#fff",
-              }}
-            >
-              {item.value}
-            </Text>
+            <View style={styles.subContainer}>
+              <Text
+                style={{
+                  color: colors.text,
+                  ...styles.itemText,
+                }}
+              >
+                {item.value}
+              </Text>
+              {data.section.data.length - 1 > data.index && <Divider />}
+            </View>
           );
         }}
-        renderSectionHeader={({ section: {title}}) => {
-            return <Text style={{
-                color: "#fff"
-            }}>{title}</Text>
+        renderSectionHeader={({ section: { title } }) => {
+          return (
+            <View
+              style={{
+                borderRadius: 5,
+                backgroundColor: colors.primary,
+                paddingLeft: 5,
+              }}
+            >
+              <Text
+                style={{
+                  ...styles.listHeader,
+                  color: colors.text,
+                }}
+              >
+                {title}
+              </Text>
+            </View>
+          );
         }}
         stickySectionHeadersEnabled={true}
       />
