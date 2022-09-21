@@ -9,3 +9,5 @@ export { default as CityAndHourDiff } from "./CityAndHourDiff";
 export { default as ModalTitle } from "./ModalTitle";
 export { default as SearchNavigation } from "./SearchNavigation";
 export { default as ListCountryTimeZone } from "./ListCountryTimezone";
+export { default as BackgroundTextView } from "./BackgroundTextView";
+export { default as SectionListItem } from "./SectionListItem";

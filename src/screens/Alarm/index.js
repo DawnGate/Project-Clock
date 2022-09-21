@@ -1,4 +1,4 @@
-import { Layout } from "@/components";
+import { LayoutWithHeader } from "@/components";
 import { useTheme } from "@react-navigation/native";
 import { Text, View } from "react-native";
 
@@ -6,7 +6,7 @@ const Alarm = () => {
   const { colors } = useTheme();
 
   return (
-    <Layout>
+    <LayoutWithHeader>
       <View>
         <Text
           style={{
@@ -16,7 +16,7 @@ const Alarm = () => {
           Alarm
         </Text>
       </View>
-    </Layout>
+    </LayoutWithHeader>
   );
 };
 

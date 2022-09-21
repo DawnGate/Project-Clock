@@ -2,6 +2,7 @@ import { useTheme } from "@react-navigation/native";
 import { SectionList, View, Text, StyleSheet } from "react-native";
 import data from "../data";
 import { Divider } from "react-native-elements";
+import SectionListItem from "./SectionListItem";
 
 const styles = StyleSheet.create({
   container: {
@@ -16,16 +17,12 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     fontSize: 20,
   },
-
-  itemText: {
-    fontSize: 20,
-    paddingVertical: 10,
-  },
 });
-const ListCountryTimeZone = () => {
+const ListCountryTimeZone = ({ searchText, setModalVisible }) => {
   const { colors } = useTheme();
 
   const alphabets = "abcdefghijklmnopqrstuvwxyz".toUpperCase().split("");
+
   const sections_data = alphabets.map((item) => ({
     title: item,
     data: [],
@@ -40,6 +37,7 @@ const ListCountryTimeZone = () => {
   };
 
   Object.keys(data)
+    .filter((key) => (searchText ? data[key].includes(searchText) : key))
     .sort((a, b) => getFistChar(data[a], "/", 1) > getFistChar(data[b], "/", 1))
     .map((key) => {
       const value = data[key];
@@ -69,37 +67,40 @@ const ListCountryTimeZone = () => {
         renderItem={(data) => {
           const item = data.item;
           return (
-            <View style={styles.subContainer}>
-              <Text
-                style={{
-                  color: colors.text,
-                  ...styles.itemText,
-                }}
-              >
-                {item.value}
-              </Text>
-              {data.section.data.length - 1 > data.index && <Divider />}
+            <View style={styles.subContainer} key={item.key}>
+              <SectionListItem
+                colors={colors}
+                item={item}
+                setModalVisible={setModalVisible}
+              />
+              {(data.section.data.length - 1 > data.index || searchText) && (
+                <Divider />
+              )}
             </View>
           );
         }}
         renderSectionHeader={({ section: { title } }) => {
           return (
-            <View
-              style={{
-                borderRadius: 5,
-                backgroundColor: colors.primary,
-                paddingLeft: 5,
-              }}
-            >
-              <Text
-                style={{
-                  ...styles.listHeader,
-                  color: colors.text,
-                }}
-              >
-                {title}
-              </Text>
-            </View>
+            <>
+              {searchText ? null : (
+                <View
+                  style={{
+                    borderRadius: 5,
+                    backgroundColor: colors.primary,
+                    paddingLeft: 5,
+                  }}
+                >
+                  <Text
+                    style={{
+                      ...styles.listHeader,
+                      color: colors.text,
+                    }}
+                  >
+                    {title}
+                  </Text>
+                </View>
+              )}
+            </>
           );
         }}
         stickySectionHeadersEnabled={true}

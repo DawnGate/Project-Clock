@@ -19,18 +19,24 @@ const styles = StyleSheet.create({
   },
 });
 
-const HeaderBar = () => {
+const HeaderBar = (props) => {
   const { colors } = useTheme();
   return (
     <View style={styles.container}>
       <ButtonCustom
         title={"Edit"}
         style={{ ...styles.button, color: colors.activeTab }}
+        onPress={() => {
+          console.log("edit");
+        }}
       />
       <Text></Text>
       <ButtonCustom
         title={"Add"}
         style={{ ...styles.button, color: colors.activeTab }}
+        onPress={() => {
+          props.setModalVisible(true);
+        }}
       />
     </View>
   );

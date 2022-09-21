@@ -1,5 +1,6 @@
 import {
   Button,
+  Keyboard,
   StyleSheet,
   Text,
   TextInput,
@@ -35,7 +36,12 @@ const styles = StyleSheet.create({
   },
 });
 
-const SearchNavigation = ({ colors }) => {
+const SearchNavigation = ({
+  colors,
+  setModalVisible,
+  setSearchText,
+  searchText,
+}) => {
   return (
     <View style={styles.root}>
       <View style={{ ...styles.container, backgroundColor: colors.secondary }}>
@@ -48,14 +54,32 @@ const SearchNavigation = ({ colors }) => {
         <TextInput
           placeholder="Search"
           style={{ ...styles.textInput, color: colors.third }}
+          value={searchText}
+          autoCorrect={false}
+          spellCheck={false}
+          onChangeText={(text) => {
+            setSearchText(text);
+          }}
         ></TextInput>
-        <TouchableOpacity
-          style={{ ...styles.clearSearchIcon, backgroundColor: colors.third }}
-        >
-          <Entypo name="cross" size={20} />
-        </TouchableOpacity>
+        {searchText && (
+          <TouchableOpacity
+            style={{ ...styles.clearSearchIcon, backgroundColor: colors.third }}
+            onPress={() => {
+              setSearchText("");
+              Keyboard.dismiss();
+            }}
+          >
+            <Entypo name="cross" size={20} />
+          </TouchableOpacity>
+        )}
       </View>
-      <Button title="Cancel" color={colors.activeTab}></Button>
+      <Button
+        title="Cancel"
+        color={colors.activeTab}
+        onPress={() => {
+          setModalVisible(false);
+        }}
+      ></Button>
     </View>
   );
 };

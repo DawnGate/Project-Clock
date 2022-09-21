@@ -5,26 +5,23 @@ import {
   LayoutWithHeader,
   ListItem,
   ScreenHeader,
+  BackgroundTextView,
 } from "@/components";
 import { useTheme } from "@react-navigation/native";
 import { useState } from "react";
 import { Modal, ScrollView, Text, View } from "react-native";
 import { AddWorldClockModal } from "../Modal";
+import { useSelector } from "react-redux";
 
 const WorldClock = () => {
   const { colors } = useTheme();
 
-  const [modalVisible, setModalVisible] = useState(true);
+  const [modalVisible, setModalVisible] = useState(false);
 
-  const items = [
-    { id: 1, title: "Hello" },
-    { id: 2, title: "Hello" },
-    { id: 3, title: "Hello" },
-    { id: 4, title: "Hello" },
-    { id: 5, title: "Hello" },
-    { id: 6, title: "Hello" },
-    { id: 7, title: "Hello" },
-  ];
+  const items = useSelector((state) => state.worldClock.items);
+
+  console.log(items);
+
   return (
     <LayoutWithHeader>
       <Modal
@@ -35,19 +32,23 @@ const WorldClock = () => {
           setModalVisible(false);
         }}
       >
-        <AddWorldClockModal />
+        <AddWorldClockModal setModalVisible={setModalVisible} />
       </Modal>
       <View style={{ flex: 1 }}>
-        <HeaderBar />
-        <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
-          <ScreenHeader color={colors.text} title="World Clock" />
-          {items.map((item) => (
-            <ListItem key={item.id}>
-              <CityAndHourDiff />
-              <HourMinutesView />
-            </ListItem>
-          ))}
-        </ScrollView>
+        <HeaderBar setModalVisible={setModalVisible} />
+        {items.length ? (
+          <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
+            <ScreenHeader color={colors.text} title="World Clock" />
+            {items.map((item, index) => (
+              <ListItem key={index}>
+                <CityAndHourDiff />
+                <HourMinutesView />
+              </ListItem>
+            ))}
+          </ScrollView>
+        ) : (
+          <BackgroundTextView title="No World Clocks" colors={colors} />
+        )}
       </View>
     </LayoutWithHeader>
   );

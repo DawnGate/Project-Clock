@@ -1,8 +1,8 @@
 import { TouchableOpacity, View, Text } from "react-native";
 
-const ButtonCustom = ({ title, style }) => {
+const ButtonCustom = ({ title, style, ...rest }) => {
   return (
-    <TouchableOpacity>
+    <TouchableOpacity {...rest}>
       <View>
         <Text style={style}>{title}</Text>
       </View>

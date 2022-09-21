@@ -4,7 +4,7 @@ const Layout = ({ children, bottomColor }) => {
   return (
     <>
       <SafeAreaView
-        style={{ flex: 0, backgroundColor: "rgba(255,255,255,0.1)" }}
+        style={{ flex: 0, backgroundColor: "transparent" }}
       ></SafeAreaView>
       <SafeAreaView
         style={{
