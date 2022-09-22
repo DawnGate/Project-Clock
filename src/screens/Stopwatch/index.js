@@ -12,8 +12,6 @@ import {
 const Stopwatch = () => {
   const fadeAnim = new Animated.Value(0);
 
-  console.log("he" + fadeAnim);
-
   const fadeIn = () => {
     // Will change fadeAnim value to 1 in 5 seconds
     Animated.spring(fadeAnim, {

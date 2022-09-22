@@ -38,7 +38,6 @@ const SectionListItem = ({ colors, item, setModalVisible }) => {
     >
       <TouchableOpacity
         onPress={() => {
-          console.log(item);
           dispatch(addWorldClock(item.value));
           setModalVisible(false);
         }}

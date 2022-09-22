@@ -6,6 +6,7 @@ const ScreenHeader = ({ title, color }) => {
         color: color,
         fontSize: 30,
         fontWeight: "700",
+        marginVertical: 10,
       }}
     >
       {title}

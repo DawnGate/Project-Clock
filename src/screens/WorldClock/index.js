@@ -12,6 +12,15 @@ import { useState } from "react";
 import { Modal, ScrollView, Text, View } from "react-native";
 import { AddWorldClockModal } from "../Modal";
 import { useSelector } from "react-redux";
+import { zonedTimeToUtc, utcToZonedTime } from "date-fns-tz";
+
+import {
+  format,
+  differenceInDays,
+  differenceInHours,
+  subHours,
+} from "date-fns";
+import { convertTimeToLocalTimeZone, dateTimeWithoutTime } from "@/utils";
 
 const WorldClock = () => {
   const { colors } = useTheme();
@@ -20,7 +29,25 @@ const WorldClock = () => {
 
   const items = useSelector((state) => state.worldClock.items);
 
-  console.log(items);
+  const currentDate = new Date();
+
+  const currentLocalDateWithoutTime = dateTimeWithoutTime(
+    convertTimeToLocalTimeZone(currentDate)
+  );
+
+  const getDataFromItem = (item) => {
+    const zoneTime = utcToZonedTime(currentDate, item);
+    const diffHours = differenceInHours(zoneTime, currentDate);
+    const diffDay = differenceInDays(
+      dateTimeWithoutTime(convertTimeToLocalTimeZone(zoneTime)),
+      currentLocalDateWithoutTime
+    );
+    return {
+      diffHours: diffHours,
+      diffDay: diffDay,
+      timeText: format(zoneTime, "HH:mm"),
+    };
+  };
 
   return (
     <LayoutWithHeader>
@@ -39,12 +66,19 @@ const WorldClock = () => {
         {items.length ? (
           <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
             <ScreenHeader color={colors.text} title="World Clock" />
-            {items.map((item, index) => (
-              <ListItem key={index}>
-                <CityAndHourDiff />
-                <HourMinutesView />
-              </ListItem>
-            ))}
+            {items.map((item, index) => {
+              const data = getDataFromItem(item);
+              return (
+                <ListItem key={index} firstItem={index === 0}>
+                  <CityAndHourDiff
+                    diffDay={data.diffDay}
+                    diffHours={data.diffHours}
+                    city={item}
+                  />
+                  <HourMinutesView timeText={data.timeText} />
+                </ListItem>
+              );
+            })}
           </ScrollView>
         ) : (
           <BackgroundTextView title="No World Clocks" colors={colors} />

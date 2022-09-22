@@ -12,14 +12,23 @@ const styles = StyleSheet.create({
   },
 });
 
-const CityAndHourDiff = () => {
+const dayHash = {
+  0: "Today",
+  1: "Tomorrow",
+  "-1": "Yesterday",
+};
+
+const CityAndHourDiff = ({ diffHours, diffDay, city }) => {
   const { colors } = useTheme();
+  const citySplit = city.split("/", 2);
   return (
     <View>
       <Text style={{ ...styles.diffHour, color: colors.secondary }}>
-        Today, -11HRS
+        {`${dayHash[diffDay.toString()]}, ${diffHours}HRS`}
       </Text>
-      <Text style={{ ...styles.city, color: colors.text }}>New York</Text>
+      <Text style={{ ...styles.city, color: colors.text }}>
+        {citySplit.length > 1 ? citySplit[1] : citySplit[0]}
+      </Text>
     </View>
   );
 };

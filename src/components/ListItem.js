@@ -9,12 +9,23 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     borderBottomWidth: 1,
   },
+
+  haveTopBorder: {
+    borderTopWidth: 1,
+  },
 });
 
-const ListItem = ({ children }) => {
+const ListItem = ({ children, firstItem }) => {
   const { colors } = useTheme();
   return (
-    <View style={{ ...styles.root, borderBottomColor: colors.primary }}>
+    <View
+      style={{
+        ...styles.root,
+        borderBottomColor: colors.primary,
+        borderTopColor: colors.primary,
+        ...(firstItem && { ...styles.haveTopBorder }),
+      }}
+    >
       {children}
     </View>
   );

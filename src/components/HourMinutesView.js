@@ -2,8 +2,7 @@ import { View, Text } from "react-native";
 import { format } from "date-fns";
 import { useTheme } from "@react-navigation/native";
 
-const HourMinutesView = () => {
-  const timeText = format(Date.now(), "HH:mm");
+const HourMinutesView = ({ timeText }) => {
   const { colors } = useTheme();
   return (
     <View>
