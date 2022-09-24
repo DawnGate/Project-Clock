@@ -249,5 +249,7 @@
   "(GMT+13:00) Fiji": "Pacific/Fiji",
   "(GMT+13:00) Tongatapu": "Pacific/Tongatapu",
   "(GMT+14:00) Apia": "Pacific/Apia",
-  "(GMT+14:00) Kiritimati": "Pacific/Kiritimati"
+  "(GMT+14:00) Kiritimati": "Pacific/Kiritimati",
+  "(GMT+07:00) VietNam": "Asia/Ho_Chi_Minh",
+  "(GMT-06:00) Central Time Bahia": "America/Bahia_Banderas"
 }

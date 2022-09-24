@@ -8,7 +8,7 @@ import {
   BackgroundTextView,
 } from "@/components";
 import { useTheme } from "@react-navigation/native";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Modal, ScrollView, Text, View } from "react-native";
 import { AddWorldClockModal } from "../Modal";
 import { useSelector } from "react-redux";
@@ -29,18 +29,14 @@ const WorldClock = () => {
 
   const items = useSelector((state) => state.worldClock.items);
 
-  const currentDate = new Date();
-
-  const currentLocalDateWithoutTime = dateTimeWithoutTime(
-    convertTimeToLocalTimeZone(currentDate)
-  );
+  const [currentDate, setCurrentDate] = useState(new Date());
 
   const getDataFromItem = (item) => {
     const zoneTime = utcToZonedTime(currentDate, item);
     const diffHours = differenceInHours(zoneTime, currentDate);
     const diffDay = differenceInDays(
       dateTimeWithoutTime(convertTimeToLocalTimeZone(zoneTime)),
-      currentLocalDateWithoutTime
+      dateTimeWithoutTime(convertTimeToLocalTimeZone(currentDate))
     );
     return {
       diffHours: diffHours,
@@ -48,6 +44,16 @@ const WorldClock = () => {
       timeText: format(zoneTime, "HH:mm"),
     };
   };
+
+  useEffect(() => {
+    const secTimer = setInterval(() => {
+      setCurrentDate(new Date());
+    }, 1000 * (60 - currentDate.getSeconds()));
+
+    return () => {
+      clearInterval(secTimer);
+    };
+  }, [currentDate]);
 
   return (
     <LayoutWithHeader>
@@ -63,7 +69,7 @@ const WorldClock = () => {
       </Modal>
       <View style={{ flex: 1 }}>
         <HeaderBar setModalVisible={setModalVisible} />
-        {items.length ? (
+        {items.length && currentDate ? (
           <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
             <ScreenHeader color={colors.text} title="World Clock" />
             {items.map((item, index) => {

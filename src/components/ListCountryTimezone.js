@@ -64,6 +64,7 @@ const ListCountryTimeZone = ({ searchText, setModalVisible }) => {
       <SectionList
         sections={sections_data}
         style={styles.container}
+        removeClippedSubviews
         renderItem={(data) => {
           const item = data.item;
           return (
