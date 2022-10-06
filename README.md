@@ -1,5 +1,5 @@
 # About
-Project for clock like apple clock view
+Project for clock like apple clock view(only support for ios simulator)
 
 # dev and maintain
 lam99quyen@gmail.com

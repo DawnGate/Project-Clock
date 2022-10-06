@@ -26,6 +26,7 @@ const WorldClock = () => {
   const { colors } = useTheme();
 
   const [modalVisible, setModalVisible] = useState(false);
+  const [isEdit, setIsEdit] = useState(false);
 
   const items = useSelector((state) => state.worldClock.items);
 
@@ -68,7 +69,11 @@ const WorldClock = () => {
         <AddWorldClockModal setModalVisible={setModalVisible} />
       </Modal>
       <View style={{ flex: 1 }}>
-        <HeaderBar setModalVisible={setModalVisible} />
+        <HeaderBar
+          setModalVisible={setModalVisible}
+          isEdit={isEdit}
+          setIsEdit={setIsEdit}
+        />
         {items.length && currentDate ? (
           <ScrollView style={{ flex: 1, paddingHorizontal: 10 }}>
             <ScreenHeader color={colors.text} title="World Clock" />
@@ -80,8 +85,9 @@ const WorldClock = () => {
                     diffDay={data.diffDay}
                     diffHours={data.diffHours}
                     city={item}
+                    isEditAble={isEdit}
                   />
-                  <HourMinutesView timeText={data.timeText} />
+                  {!isEdit && <HourMinutesView timeText={data.timeText} />}
                 </ListItem>
               );
             })}

@@ -24,10 +24,10 @@ const HeaderBar = (props) => {
   return (
     <View style={styles.container}>
       <ButtonCustom
-        title={"Edit"}
+        title={props.isEdit ? "Done" : "Edit"}
         style={{ ...styles.button, color: colors.activeTab }}
         onPress={() => {
-          console.log("edit");
+          props.setIsEdit((prev) => !prev);
         }}
       />
       <Text></Text>
